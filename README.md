@@ -1,0 +1,1 @@
+Example projects for widget on iOS 14. Xcode 12 required.
