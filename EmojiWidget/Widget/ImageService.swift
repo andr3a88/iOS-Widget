@@ -10,7 +10,7 @@ import UIKit
 
 struct ImageService {
     static func getImage(text: String, client: NetworkClient, completion: ((_ image: UIImage) -> Void)? = nil) {
-        runImageRequest(.imageRequest("140x300.png?text=\(text)"), on: client, completion: completion)
+        runImageRequest(.imageRequest("140/DDDDDD/000000?text=\(text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)"), on: client, completion: completion)
     }
 
     static func runImageRequest(_ request: URLRequest, on client: NetworkClient, completion: ((_ image: UIImage) -> Void)? = nil) {

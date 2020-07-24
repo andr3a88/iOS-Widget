@@ -13,9 +13,9 @@ struct EmojiView: View {
 
     var body: some View {
         Text(emoji.icon)
-            .font(.largeTitle)
+            .font(.title)
             .padding()
-            .background(Color.blue)
+            .background(Color("AccentColor"))
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
     }
 }

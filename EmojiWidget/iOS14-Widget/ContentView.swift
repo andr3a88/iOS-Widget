@@ -5,6 +5,7 @@
 //  Created by Andrea Stevanato on 08/07/2020.
 //
 
+import MapKit
 import SwiftUI
 import WidgetKit
 
@@ -27,6 +28,9 @@ struct ContentView: View {
                         save(emoji)
                     }
             }
+            MapView()
+                .padding(.all, 5.0)
+                .background(ContainerRelativeShape().fill(Color("AccentColor")))
         }
     }
 

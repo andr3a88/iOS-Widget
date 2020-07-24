@@ -5,6 +5,7 @@
 //  Created by Andrea Stevanato on 15/07/2020.
 //
 
+import CoreLocation
 import Foundation
 import UIKit
 import WidgetKit
@@ -31,8 +32,7 @@ struct EmojiWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(
             kind: kind,
-            provider: Provider(),
-            placeholder: PlaceholderView()
+            provider: Provider()
         ) { entry in
             WidgetEntryView(entry: entry)
         }
@@ -52,10 +52,12 @@ struct EmojiWidget: Widget {
 struct EmojiEntry: TimelineEntry {
     let date = Date()
     let emoji: Emoji
-    var image = UIImage()
+    var image: Image
 }
 
 struct Provider: TimelineProvider {
+
+    @ObservedObject var locationProvider: LocationProvider = LocationProvider()
 
     @AppStorage("emoji", store: UserDefaults(suiteName: "group.com.as.ios14.widget.iOS14-Widget"))
     var emojiData: Data = Data()
@@ -65,17 +67,20 @@ struct Provider: TimelineProvider {
         print("snapshot")
 
         ImageService.getImage(text: "\(Date().toString())", client: NetworkClient()) { image in
-            let entry = EmojiEntry(emoji: emoji, image: image)
+            let entry = EmojiEntry(emoji: emoji, image: Image(uiImage: image))
             completion(entry)
         }
     }
 
     func timeline(with context: Context, completion: @escaping (Timeline<EmojiEntry>) -> ()) {
         guard let emoji = try? JSONDecoder().decode(Emoji.self, from: emojiData) else { return }
-        print("timeline")
+
+        locationProvider.setup()
+
+        print("Last location \(locationProvider.lastLocation.debugDescription)")
 
         ImageService.getImage(text: "\(Date().toString())", client: NetworkClient()) { image in
-            let entry = EmojiEntry(emoji: emoji, image: image)
+            let entry = EmojiEntry(emoji: emoji, image: Image(uiImage: image))
 
             // Refresh the data
             let expiryDate = Calendar.current.date(byAdding: .minute, value: 5, to: Date()) ?? Date()
