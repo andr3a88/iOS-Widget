@@ -62,7 +62,7 @@ struct Provider: TimelineProvider {
     @AppStorage("emoji", store: UserDefaults(suiteName: "group.com.as.ios14.widget.iOS14-Widget"))
     var emojiData: Data = Data()
 
-    func snapshot(with context: Context, completion: @escaping (EmojiEntry) -> ()) {
+    func getSnapshot(in context: Context, completion: @escaping (EmojiEntry) -> ()) {
         guard let emoji = try? JSONDecoder().decode(Emoji.self, from: emojiData) else { return }
         print("snapshot")
 
@@ -72,7 +72,7 @@ struct Provider: TimelineProvider {
         }
     }
 
-    func timeline(with context: Context, completion: @escaping (Timeline<EmojiEntry>) -> ()) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<EmojiEntry>) -> ()) {
         guard let emoji = try? JSONDecoder().decode(Emoji.self, from: emojiData) else { return }
 
         locationProvider.setup()
@@ -87,5 +87,10 @@ struct Provider: TimelineProvider {
             let timeline = Timeline(entries: [entry], policy: .after(expiryDate))
             completion(timeline)
         }
+    }
+
+    func placeholder(with: Context) -> EmojiEntry {
+        EmojiEntry(emoji: Emoji(icon: "🤓", name: "Name", description: "Description"),
+                   image: Image(systemName: "applelogo"))
     }
 }

@@ -13,6 +13,8 @@ struct WidgetEntryView: View {
 
     @Environment(\.widgetFamily) var family
 
+    @State private var mapSnapshot: Image = Image(systemName: "applelogo")
+
     @ViewBuilder
     var body: some View {
         Group {
@@ -23,6 +25,7 @@ struct WidgetEntryView: View {
             case .systemMedium:
                 HStack {
                     entry.image
+                        .resizable()
                         .cornerRadius(10)
 
                     Spacer()
@@ -37,8 +40,10 @@ struct WidgetEntryView: View {
                 HStack {
                     VStack {
                         entry.image
+                            .resizable()
                             .cornerRadius(10)
-                        MapView()
+                        mapSnapshot
+                        MapViewWidget(mapSnapshot: $mapSnapshot)
                             .padding(.all, 5.0)
                             .background(ContainerRelativeShape().fill(Color("AccentColor")))
                     }
@@ -46,8 +51,10 @@ struct WidgetEntryView: View {
                     VStack {
                         HStack(spacing: 10) {
                             EmojiView(emoji: entry.emoji)
-                            Text(entry.emoji.name)
-                                .font(.title2)
+                            Link(
+                                entry.emoji.name,
+                                destination: URL(string: "https://www.google.it")!
+                            )
                         }
                         Text(entry.emoji.description)
                             .font(.title2)
@@ -112,6 +119,5 @@ struct WidgetEntryViewLarge_Previews: PreviewProvider {
             .previewContext(WidgetPreviewContext(family: .systemLarge))
             .previewDisplayName("Large widget")
             .environment(\.colorScheme, .light)
-            .redacted(reason: .placeholder)
     }
 }

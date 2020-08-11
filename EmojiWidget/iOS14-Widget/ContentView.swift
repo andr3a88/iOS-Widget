@@ -28,6 +28,10 @@ struct ContentView: View {
                         save(emoji)
                     }
             }
+            Text("Countdown")
+            Text(Date().addingTimeInterval(60), style: .offset)
+                .font(.title2)
+                .multilineTextAlignment(.center)
             MapView()
                 .padding(.all, 5.0)
                 .background(ContainerRelativeShape().fill(Color("AccentColor")))
