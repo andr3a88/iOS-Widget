@@ -53,6 +53,7 @@ struct EmojiEntry: TimelineEntry {
     let date = Date()
     let emoji: Emoji
     var image: Image
+    var map: Image
 }
 
 struct Provider: TimelineProvider {
@@ -67,8 +68,11 @@ struct Provider: TimelineProvider {
         print("snapshot")
 
         ImageService.getImage(text: "\(Date().toString())", client: NetworkClient()) { image in
-            let entry = EmojiEntry(emoji: emoji, image: Image(uiImage: image))
-            completion(entry)
+
+            locationProvider.getMap { map in
+                let entry = EmojiEntry(emoji: emoji, image: Image(uiImage: image), map: map)
+                completion(entry)
+            }
         }
     }
 
@@ -80,17 +84,20 @@ struct Provider: TimelineProvider {
         print("Last location \(locationProvider.lastLocation.debugDescription)")
 
         ImageService.getImage(text: "\(Date().toString())", client: NetworkClient()) { image in
-            let entry = EmojiEntry(emoji: emoji, image: Image(uiImage: image))
 
-            // Refresh the data
-            let expiryDate = Calendar.current.date(byAdding: .minute, value: 5, to: Date()) ?? Date()
-            let timeline = Timeline(entries: [entry], policy: .after(expiryDate))
-            completion(timeline)
+            locationProvider.getMap { map in
+                let entry = EmojiEntry(emoji: emoji, image: Image(uiImage: image), map: map)
+
+                // Refresh the data
+                let expiryDate = Calendar.current.date(byAdding: .minute, value: 5, to: Date()) ?? Date()
+                let timeline = Timeline(entries: [entry], policy: .after(expiryDate))
+                completion(timeline)
+            }
         }
     }
 
-    func placeholder(with: Context) -> EmojiEntry {
+    func placeholder(in with: Context) -> EmojiEntry {
         EmojiEntry(emoji: Emoji(icon: "🤓", name: "Name", description: "Description"),
-                   image: Image(systemName: "applelogo"))
+                   image: Image(systemName: "applelogo"), map: Image(systemName: "map.fill"))
     }
 }

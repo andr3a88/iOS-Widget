@@ -88,6 +88,8 @@
 		FC68AD1D24B5F4FD0003D7C9 /* WidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetExtension.entitlements; sourceTree = "<group>"; };
 		FC7B94C224C9C96D00471F79 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		FC927F0F24B5D9BB00DD47F2 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		FCB68A4C250A02B700C78024 /* Milan.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Milan.gpx; sourceTree = "<group>"; };
+		FCB68A4D250A02B700C78024 /* Venice.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Venice.gpx; sourceTree = "<group>"; };
 		FCE9DEC624B5D8EA00288336 /* iOS14-Widget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iOS14-Widget.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE9DEC924B5D8EA00288336 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCE9DECB24B5D8EA00288336 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC63E0662509001900A82A23 /* GPX */ = {
+			isa = PBXGroup;
+			children = (
+				FCB68A4C250A02B700C78024 /* Milan.gpx */,
+				FCB68A4D250A02B700C78024 /* Venice.gpx */,
+			);
+			path = GPX;
+			sourceTree = "<group>";
+		};
 		FC68AD0424B5F3850003D7C9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +176,7 @@
 		FCE9DEBD24B5D8EA00288336 = {
 			isa = PBXGroup;
 			children = (
+				FC63E0662509001900A82A23 /* GPX */,
 				FC68AD1D24B5F4FD0003D7C9 /* WidgetExtension.entitlements */,
 				FCE9DEC824B5D8EA00288336 /* iOS14-Widget */,
 				FCE9DEDF24B5D8EC00288336 /* iOS14-WidgetTests */,

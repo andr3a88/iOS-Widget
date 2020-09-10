@@ -13,7 +13,7 @@ struct WidgetEntryView: View {
 
     @Environment(\.widgetFamily) var family
 
-    @State private var mapSnapshot: Image = Image(systemName: "applelogo")
+    @State private var mapSnapshot: Image = Image(systemName: "map.fill")
 
     @ViewBuilder
     var body: some View {
@@ -42,9 +42,9 @@ struct WidgetEntryView: View {
                         entry.image
                             .resizable()
                             .cornerRadius(10)
-                        mapSnapshot
-                        MapViewWidget(mapSnapshot: $mapSnapshot)
-                            .padding(.all, 5.0)
+                        entry.map
+                            .resizable()
+                            .padding(.all, 4.0)
                             .background(ContainerRelativeShape().fill(Color("AccentColor")))
                     }
                     Spacer()
@@ -75,11 +75,13 @@ struct WidgetEntryView: View {
 
 struct WidgetEntryViewSmall_Previews: PreviewProvider {
 
+    static var image = Image(systemName: "applelogo")
+
     static var previews: some View {
         let entry = EmojiEntry(emoji: Emoji(icon: "🤓",
                                             name: "Name",
                                             description: "Description"),
-                               image: Image(systemName: "applelogo"))
+                               image: Self.image, map: Self.image)
         Group {
             WidgetEntryView(entry: entry)
                 .previewContext(WidgetPreviewContext(family: .systemSmall))
@@ -96,11 +98,14 @@ struct WidgetEntryViewSmall_Previews: PreviewProvider {
 }
 
 struct WidgetEntryViewMedium_Previews: PreviewProvider {
+
+    static var image = Image(systemName: "applelogo")
+
     static var previews: some View {
         let entry = EmojiEntry(emoji: Emoji(icon: "🤓",
                                             name: "Name",
                                             description: "Description small"),
-                               image: Image(systemName: "applelogo"))
+                               image: Self.image, map: Self.image)
         WidgetEntryView(entry: entry)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
             .previewDisplayName("Medium widget")
@@ -110,11 +115,13 @@ struct WidgetEntryViewMedium_Previews: PreviewProvider {
 
 struct WidgetEntryViewLarge_Previews: PreviewProvider {
 
+    static var image = Image(systemName: "applelogo")
+
     static var previews: some View {
         let entry = EmojiEntry(emoji: Emoji(icon: "🤓",
                                             name: "Name",
                                             description: "Description large"),
-                               image: Image(systemName: "applelogo"))
+                               image: Self.image, map: Self.image)
         WidgetEntryView(entry: entry)
             .previewContext(WidgetPreviewContext(family: .systemLarge))
             .previewDisplayName("Large widget")
